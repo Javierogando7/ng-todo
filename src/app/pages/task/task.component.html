@@ -1,3 +1,90 @@
-<p>
-  Task works
-</p>
+<div style="height: 100%; width: 100%">
+  <mat-grid-list cols="6" rowHeight="13%">
+    <mat-grid-tile [colspan]="6" [rowspan]="1">
+      <h2>Todo App</h2>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="6" [rowspan]="1">
+      <div
+        style="
+          height: 100%;
+          width: 65%;
+          margin: auto;
+          display: flex;
+          justify-content: base;
+        "
+      >
+        <mat-form-field class="example-form-field" appearance="fill">
+          <mat-label>Search</mat-label>
+          <input
+            type="search"
+            matInput
+            #searchBox
+            (input)="search(searchBox.value)"
+          />
+          <button
+            *ngIf="searchBox.value"
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="searchBox.value = ''; search(searchBox.value)"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+        <button mat-fab color="primary" style="position: relative; left: 10%" (click)="openDialog(null)">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="6" [rowspan]="5">
+      <div
+        fxLayout="row wrap"
+        class="matero-row"
+        style="height: 100%; width: 100%; margin: auto"
+      >
+        <div
+          style="
+            height: 100%;
+            width: 100%;
+            margin: auto;
+            display: flex;
+            justify-content: center;
+          "
+        >
+          <mat-card
+            style="height: 75%; width: 75%; margin: auto; overflow-y: auto"
+          >
+            <mat-card-content>
+              <div>
+                <mat-list>
+                  <div mat-subheader>New</div>
+                  <mat-list-item *ngFor="let task of newTasks">
+                    <mat-checkbox [checked]="task.isCompleted" (change)="changeTaskIsComplete($event, task)"></mat-checkbox>
+                    <div mat-line>{{ task.title }}</div>
+                    <div mat-line>{{ task.lastUpdate | date }}</div>
+                    <button mat-icon-button (click)="openDialog(task)"><mat-icon>edit</mat-icon></button>
+                    <button mat-icon-button (click)="deleteTask(task.id)"><mat-icon>delete</mat-icon></button>
+                  </mat-list-item>
+                  <mat-divider></mat-divider>
+                  <div mat-subheader>Completed</div>
+                  <mat-list-item
+                    class="completed"
+                    *ngFor="let task of completedTasks"
+                  >
+                    <mat-checkbox [checked]="task.isCompleted" (change)="changeTaskIsComplete($event, task)"></mat-checkbox>
+                    <div mat-line>{{ task.title }}</div>
+                    <div mat-line>{{ task.lastUpdate | date }}</div>
+                    <button mat-icon-button (click)="openDialog(task)"><mat-icon>edit</mat-icon></button>
+                    <button mat-icon-button (click)="deleteTask(task.id)"><mat-icon>delete</mat-icon></button>
+                  </mat-list-item>
+                </mat-list>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
