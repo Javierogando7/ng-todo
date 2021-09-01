@@ -4,7 +4,7 @@ TodoApp
 
 <div align="center">
 
-TodoApp is an Angular task management SPA.
+TodoApp is an Angular example of a task management SPA.
 
 </div>
 
